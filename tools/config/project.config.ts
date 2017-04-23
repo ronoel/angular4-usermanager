@@ -24,6 +24,9 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      { src: 'hammerjs/hammer.min.js', inject: 'libs' },
+      /* Select a pre-built Material theme */
+      { src: '@angular/material/prebuilt-themes/pink-bluegrey.css', inject: true }
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -50,6 +53,15 @@ export class ProjectConfig extends SeedConfig {
     // }];
     //
     // this.addPackagesBundles(additionalPackages);
+
+    this.addPackageBundles({
+      name: '@angular/material',
+      path: 'node_modules/@angular/material/bundles/material.umd.js',
+      packageMeta: {
+        main: 'index.js',
+        defaultExtension: 'js'
+      }
+    });
 
     /* Add proxy middleware */
     // this.PROXY_MIDDLEWARE = [
