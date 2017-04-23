@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NameListService } from '../shared/name-list/name-list.service';
 
 @NgModule({
-  imports: [HomeRoutingModule, SharedModule],
+  imports: [SharedModule],
   declarations: [HomeComponent],
   exports: [HomeComponent],
   providers: [NameListService]
