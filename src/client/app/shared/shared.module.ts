@@ -7,7 +7,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NameListService } from './name-list/name-list.service';
 
-import { MaterialModule } from '@angular/material';
+import { HasPermissionDirective } from './directive/haspermission.directive';
+
+import { MaterialModule, MdSliderModule, MdListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
@@ -19,14 +21,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CommonModule, 
     RouterModule, 
     BrowserAnimationsModule, 
-    MaterialModule.forRoot()],
-  declarations: [ToolbarComponent, NavbarComponent],
+    MaterialModule.forRoot()
+    ],
+  declarations: [ToolbarComponent, NavbarComponent, HasPermissionDirective],
   exports: [
     ToolbarComponent, 
     NavbarComponent,
     CommonModule, 
     FormsModule, 
     RouterModule,
+    MaterialModule,
+    HasPermissionDirective
   ]
 })
 export class SharedModule {

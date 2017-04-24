@@ -1,3 +1,55 @@
 <!--component html goes here -->
-<p>busca</p>
-<i class="material-icons">&#xE87C;</i>
+
+
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        
+        <h2>Busca de Usuários</h2>
+    </div>
+
+
+    <div class="panel-body">
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Nome</th>
+                    <th style="text-align:center" >Administrador</th>
+                    <th [hasPermission]="'ADMIN'" style="text-align:right">Remover</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of itemList">
+
+                    <th scope="row" class="align-middle">{{item.username}}</th>
+
+                    <td class="align-middle">{{item.fullname}}</td>
+
+                    <td class="align-middle" style="text-align:center">
+
+                        <div *ngIf='(item.roles.indexOf("ADMIN") > -1); else elseBlock'>
+                            <md-checkbox [checked]=true [disabled]=true></md-checkbox>
+                            </div>
+                        <ng-template #elseBlock>
+                            <md-checkbox [disabled]=true></md-checkbox>
+                        </ng-template>
+
+                        
+                    </td>
+
+
+                    
+
+                    <td [hasPermission]="'ADMIN'" style="text-align:right">
+                        <a md-mini-fab (click)="removeItem(item)">
+                            <md-icon>remove</md-icon>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

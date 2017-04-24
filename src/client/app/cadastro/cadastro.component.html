@@ -1,2 +1,127 @@
-<!--component html goes here -->
-<p>cadastro</p>
+
+
+<!-- START panel-->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>Cadastro de Usuário</h2>
+  </div>
+
+<div class="panel-body">
+
+
+  <form #prodForm="ngForm" class="form-horizontal">
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Usuário</label>
+      <div class="col-sm-6">
+
+        <input #refProdSelectedCode="ngModel"
+                class="form-control"
+                [(ngModel)]="item.username"
+                type="text"
+                name="refProdSelectedCode"
+                required
+                minlength="4"
+                maxlength="20"
+                ngModel>
+        <span *ngIf="refProdSelectedCode.errors && (refProdSelectedCode.dirty || refProdSelectedCode.touched)" class="text-danger" >
+          <div [hidden]="!refProdSelectedCode.errors.required">
+            Necessário fornecer um usuário.
+          </div>
+          <div [hidden]="!refProdSelectedCode.errors.minlength">
+            O usuário deve conter no mínimo 4 caracteres.
+          </div>
+          <div [hidden]="!refProdSelectedCode.errors.maxlength">
+            O usuário deve conter no máximo 50 caracteres.
+          </div>
+        </span>
+        
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Nome</label>
+      <div class="col-sm-6">
+        <input #refNomeSelectedCode="ngModel"
+                name="refNomeSelectedCode"
+                class="form-control"
+                [(ngModel)]="item.fullname"
+                type="text"
+                required
+                minlength="4"
+                maxlength="50"
+                ngModel>
+
+        <span *ngIf="refNomeSelectedCode.errors && (refNomeSelectedCode.dirty || refNomeSelectedCode.touched)" class="text-danger" >
+          <div [hidden]="!refNomeSelectedCode.errors.required">
+            Digite o nome do usuário.
+          </div>
+          <div [hidden]="!refNomeSelectedCode.errors.minlength">
+            O nome do usuário deve conter no mínimo 4 caracteres.
+          </div>
+          <div [hidden]="!refNomeSelectedCode.errors.maxlength">
+            O nome do usuário deve conter no máximo 50 caracteres.
+          </div>
+        </span>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Senha</label>
+      <div class="col-sm-6">
+        <input #refPassowrd="ngModel"
+                name="refNomePassword"
+                class="form-control"
+                [(ngModel)]="item.password"
+                type="password"
+                required
+                minlength="6"
+                maxlength="20"
+                ngModel>
+
+        <span *ngIf="refPassowrd.errors && (refPassowrd.dirty || refPassowrd.touched)" class="text-danger" >
+          <div [hidden]="!refPassowrd.errors.required">
+            Digite uma senha.
+          </div>
+          <div [hidden]="!refPassowrd.errors.minlength">
+            A senha deve conter no mínimo 6 caracteres.
+          </div>
+          <div [hidden]="!refPassowrd.errors.maxlength">
+            A senha deve conter no máximo 20 caracteres.
+          </div>
+        </span>
+
+      </div>
+    </div>
+
+<div class="form-group">
+      <label class="col-sm-2 control-label">Permissão</label>
+      <div class="col-sm-6">
+            <md-radio-group [(ngModel)]="permission" name='refRadio'>
+                <md-radio-button class="radio-b" value="USER">Usuário</md-radio-button>
+                <md-radio-button class="radio-b" value="ADMIN">Administrador</md-radio-button>
+            </md-radio-group>
+    </div>
+    </div>
+
+
+<div class="form-group">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-3">
+        <button class="btn btn btn-primary" [disabled]='!((prodForm.form.valid))'
+            (click)='save()' type="submit">
+            <div *ngIf="!isToUpdate" >Cadastrar</div>
+            <div *ngIf="isToUpdate" >Atualizar</div>
+    </button>
+    </div>
+
+    <!-- <div class="col-sm-3">
+
+  </div> -->
+</div>
+
+</form>
+</div>
+<!-- END panel-->
