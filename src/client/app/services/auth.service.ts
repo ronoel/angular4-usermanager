@@ -38,9 +38,7 @@ export class AuthService {
     }
 
     login(username: string, password: string) {
-
-        //$.cookie("auth-token", null, { path: '/' });
-
+        
         this._cookieService.remove("auth-token");
 
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

@@ -9,6 +9,14 @@
         <h2>Busca de Usuários</h2>
     </div>
 
+    <form class="form-inline">
+        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="material-icons md-24">search</i></div>
+            <input type="text" class="form-control" id="inlineFormInputGroup" name="nFilter" [(ngModel)]="filter" (keyup)='search()' placeholder="pesquisar...">
+        </div>
+    </form>
+
 
     <div class="panel-body">
         <table class="table table-striped table-hover ">

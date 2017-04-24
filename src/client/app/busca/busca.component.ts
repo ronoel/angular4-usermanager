@@ -12,6 +12,8 @@ export class BuscaComponent {
 
     public itemList: Array<any>;
 
+    public filter:string;
+
     constructor(
         private _userService: UserService
     )
@@ -19,7 +21,7 @@ export class BuscaComponent {
 
     ngOnInit() {
 
-        this._userService.getAll().subscribe(data => this.itemList = data);
+        this._userService.getAll(this.filter).subscribe(data => this.itemList = data);
 
     }
 
@@ -28,10 +30,15 @@ export class BuscaComponent {
         this._userService.remove(item).subscribe(
             ()=> {
                 alert('Item removido com sucesso!');
-                this._userService.getAll().subscribe(data => this.itemList = data);
+                this._userService.getAll(this.filter).subscribe(data => this.itemList = data);
             },
             ()=>alert('Problema ao remover o item!')
         );
+    }
+
+    public search(){
+       // console.log('Search: ' + this.filter);
+        this._userService.getAll(this.filter).subscribe(data => this.itemList = data);
     }
 
 

@@ -4,6 +4,10 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/operator/toArray';
+import 'rxjs/add/observable/from';
+
 
 @Injectable()
 export class UserService {
@@ -17,12 +21,31 @@ export class UserService {
         return this._url;
     }
 
-    getAll() {
+    getAll(filter:string) {
 
         return this._http.get(this._url,{ withCredentials: true })
             .map((response: Response) => {
                 return response.json();
             })
+            .concatMap(array => Observable.from(array))
+            .filter(
+                (data:any) => {
+
+                  //  console.log('Filtro: ');
+                 //   console.log(data);
+                //    console.log('FiltroEND');
+                    if(filter==null||filter.length==0){
+                        return true;
+                    }
+
+                    let filterU = filter.toUpperCase();
+                    
+                    if(data.username.toUpperCase().includes(filterU) || data.fullname.toUpperCase().includes(filterU)) {
+                        return true;
+                    }
+                    return false;
+                }
+             ).toArray()
             .catch((error: any) => this.handleError(error));
     }
 
@@ -52,10 +75,7 @@ export class UserService {
 
     remove(item: any) {
 
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
-
-        return this._http.delete(this._url + "/" + item.username, options)
+        return this._http.delete(this._url + "/" + item.username, {withCredentials: true})
             .catch((error: any) => this.handleError(error));
     }
 
