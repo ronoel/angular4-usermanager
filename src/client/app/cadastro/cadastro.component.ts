@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -20,7 +22,9 @@ export class CadastroComponent {
     public permission: string = "USER";
 
     constructor(
-        private _userService: UserService
+        private _userService: UserService,
+        private _router: Router,
+        private _route: ActivatedRoute
     )
     { 
         this._resetFields();
@@ -36,7 +40,7 @@ export class CadastroComponent {
         this._userService.save(this.item).subscribe(
             () => {
                 alert('Salvo com sucesso!');
-                this._resetFields();
+                this._router.navigate(['/busca'], { relativeTo: this._route });
             },
             () => alert('Problema ao salvar o objeto!')
         );

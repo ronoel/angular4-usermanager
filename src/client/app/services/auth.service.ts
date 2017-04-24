@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Config } from '../shared/config/env.config';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -12,9 +13,10 @@ export class AuthService {
 
     private _logged_user:any = null;
 
-    private _url = 'http://localhost:8080/decorateste-1.0/rest/auth';
+    private _url:string;
 
     constructor(private _http: Http, private _cookieService:CookieService) {
+        this._url = Config.API + '/auth';
     }
 
     public getMe() {

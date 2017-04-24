@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -12,7 +14,8 @@ export class BuscaComponent {
 
     public itemList: Array<any>;
 
-    public filter:string;
+    public filter: string;
+    private _filterSubscription: Subscription;
 
     constructor(
         private _userService: UserService
@@ -22,24 +25,34 @@ export class BuscaComponent {
     ngOnInit() {
 
         this._userService.getAll(this.filter).subscribe(data => this.itemList = data);
-
     }
 
 
-    public removeItem(item:any){
+    public removeItem(item: any) {
         this._userService.remove(item).subscribe(
-            ()=> {
+            () => {
                 alert('Item removido com sucesso!');
                 this._userService.getAll(this.filter).subscribe(data => this.itemList = data);
             },
-            ()=>alert('Problema ao remover o item!')
+            () => alert('Problema ao remover o item!')
         );
     }
 
-    public search(){
-       // console.log('Search: ' + this.filter);
-        this._userService.getAll(this.filter).subscribe(data => this.itemList = data);
-    }
+    public search() {
 
+        if (this._filterSubscription) {
+            console.log('removeu: ')
+            this._filterSubscription.unsubscribe();
+        }
+
+        let obs = new Observable(
+            (observer) => {
+                setTimeout(() => {
+                    observer.next();
+                }, 500);
+            }
+        ).switchMap(()=>this._userService.getAll(this.filter));
+        this._filterSubscription = obs.subscribe(data => this.itemList = data);
+    }
 
 }

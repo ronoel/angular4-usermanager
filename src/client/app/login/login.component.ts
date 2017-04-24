@@ -30,7 +30,7 @@ export class LoginComponent {
                 console.log(user);
                 this._router.navigate(['/'], { relativeTo: this._route });
             },
-            () => console.log("ERROR LOGIN"),
+            () => alert("Login ou senha invalido!"),
         );
     }
 
