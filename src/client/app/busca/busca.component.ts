@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { UserService } from '../services/user.service';
 
+import { UserEntity } from '../services/userEntity';
+
+
 @Component({
     moduleId: module.id,
     selector: 'busca',
@@ -12,7 +15,7 @@ import { UserService } from '../services/user.service';
 })
 export class BuscaComponent {
 
-    public itemList: Array<any>;
+    public itemList: UserEntity[];
 
     public filter: string;
     private _filterSubscription: Subscription;
@@ -25,6 +28,8 @@ export class BuscaComponent {
     ngOnInit() {
 
         this._userService.getAll(this.filter).subscribe(data => this.itemList = data);
+
+
     }
 
 

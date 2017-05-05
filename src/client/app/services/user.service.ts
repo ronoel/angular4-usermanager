@@ -9,6 +9,8 @@ import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/from';
 
+import { UserEntity } from './userEntity';
+
 
 @Injectable()
 export class UserService {
@@ -24,7 +26,7 @@ export class UserService {
         return this._url;
     }
 
-    getAll(filter: string) {
+    getAll(filter: string): Observable<UserEntity[]> {
 
         let requestURL = this._url;
 
@@ -68,7 +70,7 @@ export class UserService {
         //     .catch((error: any) => this.handleError(error));
     }
 
-    save(produto: any) {
+    save(produto: UserEntity) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers, withCredentials: true });
 
@@ -92,13 +94,13 @@ export class UserService {
                 .catch((error: any) => this.handleError(error));
         }*/
 
-    remove(item: any) {
+    remove(item: UserEntity) {
 
         return this._http.delete(this._url + "/" + item.username, { withCredentials: true })
             .catch((error: any) => this.handleError(error));
     }
 
-    get(id: number) {
+    get(id: number): Observable<UserEntity> {
         return this._http.get(this._url + "/" + id, { withCredentials: true })
             .map((response: Response) => response.json())
             .catch((error: any) => this.handleError(error));
